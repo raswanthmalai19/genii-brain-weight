@@ -1,0 +1,9 @@
+# Brain Training Requirements
+torch>=2.4.0
+torchvision
+numpy
+pandas
+pyarrow
+yfinance
+tqdm
+lightgbm

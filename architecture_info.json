@@ -1,0 +1,18 @@
+{
+  "world_model_params": 7150957,
+  "actor_critic_params": 1379077,
+  "tft_params": 709321,
+  "total_params": 9239355,
+  "rssm_det_size": 512,
+  "rssm_stoch_size": 1024,
+  "rssm_num_cat": 32,
+  "rssm_cat_dim": 32,
+  "state_feature_dim": 1536,
+  "tft_hidden_dim": 128,
+  "tft_num_heads": 4,
+  "tft_lstm_layers": 2,
+  "pytorch_version": "2.10.0+cu126",
+  "cuda_version": "12.6",
+  "gpu_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "python_version": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]"
+}

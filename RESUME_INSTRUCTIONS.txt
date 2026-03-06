@@ -1,0 +1,47 @@
+# Brain Training — Resume Instructions
+# =====================================
+# Last trained on: NVIDIA GeForce RTX 4070 Laptop GPU
+# PyTorch: 2.10.0+cu126 | CUDA: 12.6
+# Stopped at: Epoch 35/50 | Best Loss: 1.001125
+# Remaining: 15 World Model epochs + TFT (50) + Actor-Critic (30)
+#
+# FOLDER CONTENTS:
+#   world_model_full_checkpoint.pt  — RESUME from here (has optimizer+scheduler+scaler)
+#   world_model_latest.pt           — Latest model weights only
+#   world_model_best.pt             — Best model weights (lowest loss)
+#   world_model_ep10/20/30.pt       — Per-epoch snapshots
+#   actor_critic.pt                 — Actor-Critic weights (not yet trained)
+#   tft_model.pt                    — TFT weights (not yet trained)
+#   processed_features.npz          — Pre-computed 300-dim features (skip Cell 4+5)
+#   tft_split_data.npz              — TFT train/val split (skip Cell 7)
+#   data/raw/*.parquet              — Raw market data (31 symbols, 2yr daily)
+#   train_brain.ipynb               — Complete notebook
+#   training_history.json           — Loss metrics
+#   architecture_info.json          — Model config + param counts
+#   requirements.txt                — pip dependencies
+#
+# TO RESUME ON A NEW LAPTOP:
+# ──────────────────────────
+# 1. Copy this entire "weights" folder to the new machine
+# 2. pip install -r requirements.txt
+# 3. pip install torch --index-url https://download.pytorch.org/whl/cu126
+# 4. Open train_brain.ipynb
+# 5. Run Cells 1-3 (setup)
+# 6. In Cell 2, set BASE_DIR to point to this weights/data/ folder
+# 7. Skip Cell 4 (data already in data/raw/)
+# 8. Run Cell 5-8 (features + models)
+#    OR load processed_features.npz to skip Cell 5:
+#      data = np.load("processed_features.npz")
+#      combined = data["combined"]
+#      combined_close = data["combined_close"]
+# 9. Before Cell 9, load checkpoint:
+#      ckpt = torch.load("world_model_full_checkpoint.pt")
+#      world_model.load_state_dict(ckpt["world_model_state_dict"])
+#      wm_opt.load_state_dict(ckpt["optimizer_state_dict"])
+#      wm_sched.load_state_dict(ckpt["scheduler_state_dict"])
+#      scaler.load_state_dict(ckpt["scaler_state_dict"])
+#      start_epoch = ckpt["epoch"]  # = 35
+#      best_wm = ckpt["best_loss"]  # = 1.001125
+# 10. Change Cell 9 loop: for epoch in range(start_epoch, NUM_WM_EPOCHS):
+# 11. Run Cell 9 to finish remaining 15 epochs
+# 12. Run Cells 10-13 for TFT + Actor-Critic + Validation
